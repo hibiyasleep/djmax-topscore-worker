@@ -41,6 +41,26 @@ const parseCommand = message => {
   return []
 }
 
+const wrapResponse = wrapOptions => (payload, options = {}) => {
+  if(typeof payload === 'string')
+    payload = { message: payload }
+
+  if(wrapOptions.noerror) {
+    payload.status = options.status ?? 200
+    options = { ...options, status: 200 }
+  }
+
+  if(wrapOptions.responseType === 'json')
+    return new Response(JSON.stringify(payload), {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+      ...options
+    })
+  else
+    return new Response(payload.message, options)
+}
+
 const fetchSheet = async () => {
   const body = await fetch(SHEET_URL).then(_ => _.text())
 
@@ -60,38 +80,29 @@ const fetchSheet = async () => {
   return pages
 }
 
-const NotFound = async (request, reason = '지정된 값을 찾을 수 없습니다.') => {
-  return new Response(' ' /*reason*/, {
-    status: 404,
-    headers: {
-      Allow: 'GET'
-    }
-  })
-}
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
     const query = url.searchParams.get('q')
     const flags = url.searchParams.get('f')?.split(',') ?? []
 
-    if(!query) {
-      return new Response(`사용법: !전일 <제목일부> <키+패턴> (예: Mui 6sc) https://pastebin.com/raw/sk3wq5SE`)
-    }
+    const responseType = flags.includes('json')? 'json' : 'text'
+    const noerror = flags.includes('noerror') || responseType === 'text'
+    const _response = wrapResponse({ responseType, noerror })
+
+    if(!query)
+      return _response(`사용법: !전일 <제목일부> <키+패턴> (예: Mui 6sc) https://pastebin.com/raw/sk3wq5SE`, { status: 404 })
 
     const [ title, button, pattern ] = parseCommand(query)
-    if(!title) {
-      return new Response(' ')
-      // return Response(`검색어 '${query}'를 인식하지 못했습니다.`, { status: 422 })
-    }
+    if(!title)
+      return _response(`검색어 '${query}'를 인식하지 못했습니다.`, { status: 404 })
 
     let rows = await env.dmrv_sheet.get(`hard-${button}b`, { type: 'json' })
 
     if(rows === null) {
       const sheet = await fetchSheet()
-      for(const [button, page] of sheet.entries()) {
+      for(const [button, page] of sheet.entries())
         await env.dmrv_sheet.put(`hard-${button}b`, JSON.stringify(page), { expirationTtl: SHEET_TTL })
-      }
 
       rows = sheet.get(button)
     }
@@ -106,20 +117,13 @@ export default {
       .sort((a, b) => a.title.length - b.title.length)
       .find(row => row.title.toLowerCase().includes(title) && row.pattern.includes(pattern))
 
-    if(!found) {
-      return new Response('')
-      // return Request(`검색 조건 '${title}, ${button}키, ${pattern ?? '아무 패턴'}'에 일치하는 값이 없습니다.`, { status: 404 })
-    }
+    if(!found)
+      return _response(`검색 조건 '${title}, ${button}키, ${pattern || '아무 패턴'}'에 일치하는 값이 없습니다.`, { status: 404 })
 
-    if(flags.includes('json')) {
-      const payload = { ...found, button }
-      return new Response(JSON.stringify(payload), {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
-      })
-    } else {
-      return new Response(`${found.title} ${button}B ${found.pattern}: ${found.percent ?? '---'} (${found.score ?? '---'})`)
-    }
+    return _response({
+      ...found,
+      button,
+      message: `${found.title} ${button}B ${found.pattern}: ${found.percent ?? '---'} (${found.score ?? '---'})`
+    })
   }
 }
