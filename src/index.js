@@ -60,7 +60,7 @@ export default {
 
     const [ title, button, pattern ] = parseCommand(query)
     if(!title) {
-      return new Response('')
+      return new Response(' ')
       // return NotFound(request, `검색어 '${query}'를 인식하지 못했습니다.`)
     }
 
