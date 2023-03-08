@@ -61,7 +61,7 @@ const wrapResponse = wrapOptions => (payload, options = {}) => {
       ...options
     })
   else {
-    if(!wrapOptions.sendError)
+    if(!wrapOptions.sendError && (payload.status < 200 || 299 < payload.status))
       payload.message = ' ' // Nightbot
     else
       payload.message += '\n'
