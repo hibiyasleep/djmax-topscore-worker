@@ -60,8 +60,14 @@ const wrapResponse = wrapOptions => (payload, options = {}) => {
       },
       ...options
     })
-  else
+  else {
+    if(!wrapOptions.sendError)
+      payload.message = ' ' // Nightbot
+    else
+      payload.message += '\n'
+
     return new Response(payload.message, options)
+  }
 }
 
 const fetchSheet = async () => {
