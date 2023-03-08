@@ -101,7 +101,7 @@ export default {
     const _response = wrapResponse({ responseType, sendError })
 
     if(!query)
-      return _response(`사용법: !전일 <제목일부> <키+패턴> (예: Mui 6sc) https://pastebin.com/raw/sk3wq5SE`, { status: 404 })
+      return _response(`사용법: !전일 kick it 6sc https://github.com/hibiyasleep/djmax-topscore-worker`, { status: 404 })
 
     const [ title, button, pattern ] = parseCommand(query)
     if(!title)
