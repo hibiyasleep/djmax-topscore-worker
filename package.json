@@ -1,0 +1,16 @@
+{
+  "name": "djmax",
+  "version": "0.0.0",
+  "devDependencies": {
+    "wrangler": "2.12.1"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish"
+  },
+  "dependencies": {
+    "css-select": "^5.1.0",
+    "htmlparser2": "^8.0.1"
+  }
+}
