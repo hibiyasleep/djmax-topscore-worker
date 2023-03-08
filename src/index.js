@@ -45,10 +45,13 @@ const wrapResponse = wrapOptions => (payload, options = {}) => {
   if(typeof payload === 'string')
     payload = { message: payload }
 
-  if(wrapOptions.noerror) {
-    payload.status = options.status ?? 200
+  payload.message = payload.message.replaceAll('`', '\'') // Nightbot… eval…
+
+  payload.status = options.status
+  options.status ||= 200
+
+  if(!wrapOptions.sendError)
     options = { ...options, status: 200 }
-  }
 
   if(wrapOptions.responseType === 'json')
     return new Response(JSON.stringify(payload), {
@@ -87,8 +90,9 @@ export default {
     const flags = url.searchParams.get('f')?.split(',') ?? []
 
     const responseType = flags.includes('json')? 'json' : 'text'
-    const noerror = flags.includes('noerror') || responseType === 'text'
-    const _response = wrapResponse({ responseType, noerror })
+    // '+' means '%20' in URL, but just gonna ignoring this fact
+    const sendError = responseType === 'text'? flags.includes(' error') : !flags.includes('-error')
+    const _response = wrapResponse({ responseType, sendError })
 
     if(!query)
       return _response(`사용법: !전일 <제목일부> <키+패턴> (예: Mui 6sc) https://pastebin.com/raw/sk3wq5SE`, { status: 404 })
