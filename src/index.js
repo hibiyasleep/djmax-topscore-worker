@@ -24,10 +24,10 @@ const SHEET_MAPPING = {
 const parseCommand = message => {
   let match, title, button, pattern
 
-  ;[match, title, button, pattern] = /^(.+?) ?([4568])[bk ]?(mx|sc)$/i.exec(message) || []
+  ;[match, title, button, pattern] = /^(.+?) ?([4568])[bk ]?(mx|sc)?$/i.exec(message) || []
   if(match) {
     title = ALIASES[title] || title
-    return [ title.toLowerCase(), button, pattern.toUpperCase() ]
+    return [ title.toLowerCase(), button, (pattern ?? '').toUpperCase() ]
   }
 
   ;[match, button, title] = /^([4568]) ?(.+?)$/i.exec(message) || []
