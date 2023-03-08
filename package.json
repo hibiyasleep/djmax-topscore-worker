@@ -1,6 +1,6 @@
 {
-  "name": "djmax",
-  "version": "0.0.0",
+  "name": "djmax-topscore-worker",
+  "version": "0.1.0",
   "devDependencies": {
     "wrangler": "2.12.1"
   },
