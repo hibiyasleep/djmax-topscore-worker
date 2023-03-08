@@ -73,7 +73,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
     const query = url.searchParams.get('q')
-    // const flags = url.searchParams.get('flags').split(',')
+    const flags = url.searchParams.get('f')?.split(',') ?? []
 
     if(!query) {
       return new Response(`사용법: !전일 <제목일부> <키+패턴> (예: Mui 6sc) https://pastebin.com/raw/sk3wq5SE`)
@@ -111,7 +111,15 @@ export default {
       // return Request(`검색 조건 '${title}, ${button}키, ${pattern ?? '아무 패턴'}'에 일치하는 값이 없습니다.`, { status: 404 })
     }
 
-    let result = `${found.title} ${button}B ${found.pattern}: ${found.percent ?? '---'} (${found.score ?? '---'})`
-    return new Response(result)
+    if(flags.includes('json')) {
+      const payload = { ...found, button }
+      return new Response(JSON.stringify(payload), {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      })
+    } else {
+      return new Response(`${found.title} ${button}B ${found.pattern}: ${found.percent ?? '---'} (${found.score ?? '---'})`)
+    }
   }
 }
