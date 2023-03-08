@@ -1,3 +1,6 @@
 name = "djmax"
 main = "src/index.js"
 compatibility_date = "2023-03-08"
+kv_namespaces = [
+  { binding = "dmrv_sheet", id = "995dcec3bc75406ab438ace0e621dbbe", preview_id = "6fcbac4bbe174532bfd5dfaa5e5a42ee"  }
+]

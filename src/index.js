@@ -21,6 +21,8 @@ const SHEET_MAPPING = {
   '8': '1815765540'
 }
 
+const SHEET_TTL = 600
+
 const parseCommand = message => {
   let match, title, button, pattern
 
@@ -37,6 +39,25 @@ const parseCommand = message => {
   }
 
   return []
+}
+
+const fetchSheet = async () => {
+  const body = await fetch(SHEET_URL).then(_ => _.text())
+
+  const dom = htmlparser2.parseDocument(body)
+  const pages = new Map(
+    Object.entries(SHEET_MAPPING).map(([ buttons, id ]) => [
+      buttons,
+      CSSSelect
+        .selectAll(`[id="${id}"] tbody > tr`, dom)
+        .map(({ children }) => [ children[2], children[4], children[5], children[6], children[7] ])
+        .map(row => row.map(el => el.children[0]?.data))
+        .filter(row => row[0])
+        .map(row => row.slice(0, 5))
+    ])
+  )
+
+  return pages
 }
 
 const NotFound = async (request, reason = '지정된 값을 찾을 수 없습니다.') => {
@@ -61,23 +82,21 @@ export default {
     const [ title, button, pattern ] = parseCommand(query)
     if(!title) {
       return new Response(' ')
-      // return NotFound(request, `검색어 '${query}'를 인식하지 못했습니다.`)
+      // return Response(`검색어 '${query}'를 인식하지 못했습니다.`, { status: 422 })
     }
 
-    const body = await fetch(SHEET_URL, {
-      cf: {
-        cacheTtlByStatus: { '200-299': 600, '404': 1, '500-599': 0 },
-        cacheEverything: true
-      }
-    }).then(_ => _.text())
+    let rows = await env.dmrv_sheet.get(`hard-${button}b`, { type: 'json' })
 
-    const dom = htmlparser2.parseDocument(body)
-    const found = CSSSelect
-      .selectAll(`[id="${SHEET_MAPPING[button]}"] tbody > tr`, dom)
-      .map(({ children }) => [ children[2], children[4], children[5], children[6], children[7] ])
-      .map(row => row.map(el => el.children[0]?.data))
-      .filter(row => row[0])
-      .map(row => ({
+    if(rows === null) {
+      const sheet = await fetchSheet()
+      for(const [button, page] of sheet.entries()) {
+        await env.dmrv_sheet.put(`hard-${button}b`, JSON.stringify(page), { expirationTtl: SHEET_TTL })
+      }
+
+      rows = sheet.get(button)
+    }
+
+    const found = rows.map(row => ({
         title: row[0],
         pattern: row[1],
         score: row[2],
@@ -89,7 +108,7 @@ export default {
 
     if(!found) {
       return new Response('')
-      // return NotFound(request, `검색 조건 '${title}, ${button}키, ${pattern}'에 일치하는 값이 없습니다.`)
+      // return Request(`검색 조건 '${title}, ${button}키, ${pattern ?? '아무 패턴'}'에 일치하는 값이 없습니다.`, { status: 404 })
     }
 
     let result = `${found.title} ${button}B ${found.pattern}: ${found.percent ?? '---'} (${found.score ?? '---'})`
