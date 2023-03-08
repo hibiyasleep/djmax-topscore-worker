@@ -55,7 +55,7 @@ export default {
     // const flags = url.searchParams.get('flags').split(',')
 
     if(!query) {
-      return new Response(`사용법: !전일 <제목일부> <키+패턴> (ex: Mui 6sc) https://pastebin.com/raw/HLgS3vkA`)
+      return new Response(`사용법: !전일 <제목일부> <키+패턴> (예: Mui 6sc) https://pastebin.com/raw/sk3wq5SE`)
     }
 
     const [ title, button, pattern ] = parseCommand(query)
