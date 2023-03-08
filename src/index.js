@@ -92,7 +92,7 @@ export default {
       // return NotFound(request, `검색 조건 '${title}, ${button}키, ${pattern}'에 일치하는 값이 없습니다.`)
     }
 
-    let result = `${found.title} ${button}B ${found.pattern}: ${found.percent} (${found.score})`
+    let result = `${found.title} ${button}B ${found.pattern}: ${found.percent ?? '---'} (${found.score ?? '---'})`
     return new Response(result)
   }
 }
