@@ -1,4 +1,5 @@
 technical details below.
+
 설정 방법은 맨 아래를 참고해주세요.
 
 
@@ -65,6 +66,7 @@ $ | WONDER $LOT 777
 - 또는 그냥 누가 그렇게 찔러볼 거 같다는 생각이 드는 경우
 
 [목록](https://github.com/hibiyasleep/djmax-topscore-worker/blob/main/src/alias.js)에 있는 것에만 대응합니다
+
 목록이 완전하지 않으므로 필요한 것은 요청 주시면 감사하겠습니다 (진짜아무거나막넣었어요…)
 
 
@@ -76,7 +78,9 @@ $ | WONDER $LOT 777
 ## API
 
 뭔가 이상하다면 다 나봇 탓입니다
+
 내탓아님
+
 아마도
 
 * GET /
@@ -113,16 +117,18 @@ $ | WONDER $LOT 777
 
 1. https://nightbot.tv/ 에서 채널에 Nightbot을 추가합니다.
 2. 방송 채팅창에 아래 명령어를 복붙합니다 (오른쪽 끝에 복사버튼 있음)
-   기록 남긴 사람 이름을 보려면 `f=` 부분을 `f=who` 로 바꾸세요.
-  - 게임 상관없이 동작하게 하려면 이 쪽
+
+- 게임 상관없이 동작하게 하려면 이 쪽
 ```
 !commands add !전일 -cd=5 $(urlfetch https://djmax.hibiya.workers.dev/?q=$(querystring)&f=)` : ' ')
 ```
-  - 게임이 DJMAX일 때만 동작하게 하려면 이 쪽
+- 게임이 DJMAX일 때만 동작하게 하려면 이 쪽
 ```
 !commands add !전일 -cd=5 $(eval `$(twitch $(channel) "{{game}}")`.startsWith(`DJMAX`)? `$(urlfetch https://djmax.hibiya.workers.dev/?q=$(querystring)&f=)` : ' ')
 ```
+기록 남긴 사람 이름을 같이 보려면 `f=` 부분을 `f=who` 로 바꾸세요.
 
 ### Moobot
 
-이거어케설명함?? 암튼 얘로도 가능은 합니다 잘 쓰면 형식 커스텀할 수도 있음
+설명은 못하겠는데 가능은 합니다
+잘 쓰면 형식 커스텀할 수도 있음
