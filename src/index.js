@@ -122,12 +122,22 @@ export default {
       .find(row => row.title.toLowerCase().includes(title) && row.pattern.includes(pattern))
 
     if(!found)
-      return _response(`검색 조건 '${title}, ${button}키, ${pattern || '아무 패턴'}'에 일치하는 값이 없습니다.`, { status: 404 })
+      return _response(`검색 조건 '${title}, ${button}키, ${pattern || '아무 패턴'}'에 일치하는 항목이 없습니다.`, { status: 404 })
+
+    let message = `${found.title} ${button}B ${found.pattern}:`
+
+    if(found.score) {
+      message += ` ${found.percent}, ${found.score}`
+      if(flags.includes('who'))
+        message += ` (by ${found.player})`
+    } else {
+      message += ' ---'
+    }
 
     return _response({
       ...found,
       button,
-      message: `${found.title} ${button}B ${found.pattern}: ${found.percent ?? '---'} (${found.score ?? '---'})`
+      message
     })
   }
 }
