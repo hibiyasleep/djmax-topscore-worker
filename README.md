@@ -1,5 +1,4 @@
-technical details below.
-
+technical details below.  
 설정 방법은 맨 아래를 참고해주세요.
 
 
@@ -65,8 +64,7 @@ $ | WONDER $LOT 777
 - 유저 사이에서 약칭이 자주 쓰이는 경우
 - 또는 그냥 누가 그렇게 찔러볼 거 같다는 생각이 드는 경우
 
-[목록](https://github.com/hibiyasleep/djmax-topscore-worker/blob/main/src/alias.js)에 있는 것에만 대응합니다
-
+[목록](https://github.com/hibiyasleep/djmax-topscore-worker/blob/main/src/alias.js)에 있는 것에만 대응합니다  
 목록이 완전하지 않으므로 필요한 것은 요청 주시면 감사하겠습니다 (진짜아무거나막넣었어요…)
 
 
@@ -77,10 +75,8 @@ $ | WONDER $LOT 777
 
 ## API
 
-뭔가 이상하다면 다 나봇 탓입니다
-
-내탓아님
-
+뭔가 이상하다면 다 나봇 탓입니다  
+내탓아님  
 아마도
 
 * GET /
@@ -98,8 +94,8 @@ $ | WONDER $LOT 777
       - `who`: 응답 메시지에 누구 기록인지를 추가합니다.
   * 응답
     - 평문일 경우
-      사용자에게 출력할 텍스트를 반환합니다.
-      `-escape` 플래그가 없을 땐 `'`, <code>\`</code>을 escape합니다.
+      사용자에게 출력할 텍스트를 반환합니다.  
+      `-escape` 플래그가 없을 땐 `'`, <code>\`</code>을 escape합니다.  
       `+error` 플래그가 없고 404를 반환해야 하는 경우 오류 메시지 대신 `\x20` 한 글자만 반환합니다.
     - JSON일 경우
       - 기본 응답: `status` (HTTP 응답 코드), `message`
@@ -116,7 +112,8 @@ $ | WONDER $LOT 777
 ### Nightbot
 
 1. https://nightbot.tv/ 에서 채널에 Nightbot을 추가합니다.
-2. 방송 채팅창에 아래 명령어를 복붙합니다 (오른쪽 끝에 복사버튼 있음)
+2. 방송 채팅창에 아래 명령어를 복붙합니다 (오른쪽 끝에 복사버튼 있음)  
+  기록 남긴 사람 이름을 같이 보려면 `f=` 부분을 `f=who` 로 바꾸세요.
 
 - 게임 상관없이 동작하게 하려면 이 쪽
 ```
@@ -126,9 +123,9 @@ $ | WONDER $LOT 777
 ```
 !commands add !전일 -cd=5 $(eval `$(twitch $(channel) "{{game}}")`.startsWith(`DJMAX`)? `$(urlfetch https://djmax.hibiya.workers.dev/?q=$(querystring)&f=)` : ' ')
 ```
-기록 남긴 사람 이름을 같이 보려면 `f=` 부분을 `f=who` 로 바꾸세요.
+
 
 ### Moobot
 
-설명은 못하겠는데 가능은 합니다
-잘 쓰면 형식 커스텀할 수도 있음
+설명은 못하겠는데 가능은 합니다  
+JSON 응답을 잘 쓰면 형식 커스텀할 수도 있음
