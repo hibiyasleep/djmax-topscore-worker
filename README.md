@@ -114,21 +114,10 @@ $ | WONDER $LOT 777
 ### Nightbot
 
 1. https://nightbot.tv/ 에서 채널에 Nightbot을 추가합니다.
-2. 방송 채팅창에 아래 명령어를 복붙합니다 (오른쪽 끝에 복사버튼 있음)  
-  기록 남긴 사람 이름을 같이 보려면 `f=` 뒤에 `who,` 를 끼우세요.
-  맥스판정 전일을 받으려면 hard를 max로 바꾸세요.
-
-- 게임 상관없이 동작하게 하려면 이 쪽
-```
-!commands add !전일 -cd=5 $(urlfetch https://djmax.hibiya.workers.dev/hard?q=$(querystring)&f=nightbot)` : ' ')
-```
-- 게임이 DJMAX일 때만 동작하게 하려면 이 쪽
-```
-!commands add !전일 -cd=5 $(eval `$(twitch $(channel) "{{game}}")`.startsWith(`DJMAX`)? `$(urlfetch https://djmax.hibiya.workers.dev/hard?q=$(querystring)&f=nightbot)` : ' ')
-```
+2. [명령어 생성기](https://hibiyasleep.github.io/djmax-topscore-worker/generate-url.html)에서 원하는 대로 명령어를 구성한 다음, Twitch 채팅창에 붙여넣으세요.
 
 
 ### Moobot
 
 설명은 못하겠는데 가능은 합니다  
-JSON 응답을 잘 쓰면 형식 커스텀할 수도 있음
+위에 명령어 생성기에서 URL만 만들 수도 있음
