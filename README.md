@@ -5,6 +5,8 @@ technical details below.
 
 # 디맥하판전일봇(가)
 
+- v0.1.1
+
 - 데이터 제공: 하드판정 전일 기록 아카이브
   - [하드판정 시트](https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/edit)
   - [맥스판정 시트](https://docs.google.com/spreadsheets/d/1YQ4q4T_tIuQG2g442sxtrhSXvI2iUCvU8nHAyQ4G0Vk/edit)
