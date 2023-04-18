@@ -5,7 +5,10 @@ technical details below.
 
 # 디맥하판전일봇(가)
 
-- 데이터 제공: 하드판정 전일 기록 아카이브 - [시트](https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/edit) / [Discord](https://discord.gg/F7qkTr2NJ4)
+- 데이터 제공: 하드판정 전일 기록 아카이브
+  - [하드판정 시트](https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/edit)
+  - [맥스판정 시트](https://docs.google.com/spreadsheets/d/1YQ4q4T_tIuQG2g442sxtrhSXvI2iUCvU8nHAyQ4G0Vk/edit)
+  - [Discord](https://discord.gg/F7qkTr2NJ4)
 
 - 문의: hibiya (hibiya#8268, [@hibiyasleep](https://twitter.com/hibiyasleep))
 
@@ -17,7 +20,7 @@ technical details below.
 - `!전일 <키><검색어/별칭>`
 
 <details>
-<summary> 문법 자세히 보기 </summary>
+<summary> 문법 정확히 보기 </summary>
 
 - 요청 := `<곡 검색어>` ` `? `<패턴 검색어>` | `<키>` ` `? `<곡 검색어>`
 - 곡 검색어 := `곡명의 일부` | `약칭`
@@ -79,24 +82,21 @@ $ | WONDER $LOT 777
 내탓아님  
 아마도
 
-* GET /
+* GET /hard, GET /max
   * 요청 (params)
     - `q`: 검색어
     - `f`: 플래그 (쉼표로 구분됨)
       - `json`: JSON으로 응답합니다.
-      - `-error`: JSON 응답일 때도 오류를 무시하고 항상 200으로 응답합니다.
-      - `+error`: 평문 응답일 때도 오류 메시지와 상태 코드를 제대로 반환합니다.
-        - 예시
-          - `` - Nightbot에 바로 사용 가능
-          - `json,-error` - Nightbot에서 `$(urlfetch json)`으로 사용할 때
-          - `+error` - Nightbot이 아니고 모든 에러 메시지를 받아보고 싶을 때
-      - `-escape`: 평문 응답에 Nightbot `eval`용 이스케이프를 사용하지 않습니다.
       - `who`: 응답 메시지에 누구 기록인지를 추가합니다.
+      - `error`: 오류가 발생했을 때 오류 메시지를 보냅니다.
+      - `nightbot`: Nightbot용 처리를 켭니다.
+        - eval용 이스케이프
+        - 에러가 발생해도 200으로 반환
   * 응답
     - 평문일 경우
       사용자에게 출력할 텍스트를 반환합니다.  
-      `-escape` 플래그가 없을 땐 `'`, <code>\`</code>을 escape합니다.  
-      `+error` 플래그가 없고 404를 반환해야 하는 경우 오류 메시지 대신 `\x20` 한 글자만 반환합니다.
+      `nightbot` 플래그가 켜져있으면 `'`, <code>\`</code>을 escape하고,
+      오류 메시지를 404 대신 200으로 보냅니다.
     - JSON일 경우
       - 기본 응답: `status` (HTTP 응답 코드), `message`
       - 정상 응답일 때: `title`, `pattern`, `score`, `percent`, `player`, `button`
@@ -113,15 +113,16 @@ $ | WONDER $LOT 777
 
 1. https://nightbot.tv/ 에서 채널에 Nightbot을 추가합니다.
 2. 방송 채팅창에 아래 명령어를 복붙합니다 (오른쪽 끝에 복사버튼 있음)  
-  기록 남긴 사람 이름을 같이 보려면 `f=` 부분을 `f=who` 로 바꾸세요.
+  기록 남긴 사람 이름을 같이 보려면 `f=` 뒤에 `who,` 를 끼우세요.
+  맥스판정 전일을 받으려면 hard를 max로 바꾸세요.
 
 - 게임 상관없이 동작하게 하려면 이 쪽
 ```
-!commands add !전일 -cd=5 $(urlfetch https://djmax.hibiya.workers.dev/?q=$(querystring)&f=)` : ' ')
+!commands add !전일 -cd=5 $(urlfetch https://djmax.hibiya.workers.dev/hard?q=$(querystring)&f=nightbot)` : ' ')
 ```
 - 게임이 DJMAX일 때만 동작하게 하려면 이 쪽
 ```
-!commands add !전일 -cd=5 $(eval `$(twitch $(channel) "{{game}}")`.startsWith(`DJMAX`)? `$(urlfetch https://djmax.hibiya.workers.dev/?q=$(querystring)&f=)` : ' ')
+!commands add !전일 -cd=5 $(eval `$(twitch $(channel) "{{game}}")`.startsWith(`DJMAX`)? `$(urlfetch https://djmax.hibiya.workers.dev/hard?q=$(querystring)&f=nightbot)` : ' ')
 ```
 
 

@@ -13,12 +13,25 @@ import * as CSSSelect from 'css-select'
 
 import ALIASES from './alias.js'
 
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/htmlview'
-const SHEET_MAPPING = {
-  '4': '0',
-  '5': '1602629531',
-  '6': '87242412',
-  '8': '1815765540'
+const SHEET = {
+  hard: {
+    url: 'https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/htmlview',
+    map: {
+      4: '0',
+      5: '1602629531',
+      6: '87242412',
+      8: '1815765540'
+    }
+  },
+  max: {
+    url: 'https://docs.google.com/spreadsheets/d/1YQ4q4T_tIuQG2g442sxtrhSXvI2iUCvU8nHAyQ4G0Vk/htmlview',
+    map: {
+      4: '0',
+      5: '1602629531',
+      6: '87242412',
+      8: '1815765540'
+    }
+  }
 }
 
 const SHEET_TTL = 600
@@ -45,23 +58,24 @@ const wrapResponse = wrapOptions => (payload, options = {}) => {
   if(typeof payload === 'string')
     payload = { message: payload }
 
-  payload.message = payload.message.replaceAll('`', '\'') // Nightbot… eval…
+  if(wrapOptions.shouldEscape)
+    payload.message = payload.message.replaceAll('`', '\'') // Nightbot… eval…
 
   payload.status = options.status
   options.status ||= 200
 
-  if(!wrapOptions.sendError)
+  if(wrapOptions.alwaysOk)
     options = { ...options, status: 200 }
 
-  if(wrapOptions.responseType === 'json')
+  if(wrapOptions.responseType === 'json') {
     return new Response(JSON.stringify(payload), {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8'
       },
       ...options
     })
-  else {
-    if(!wrapOptions.sendError && (payload.status < 200 || 299 < payload.status))
+  } else {
+    if((payload.status < 200 || 299 < payload.status) && !wrapOptions.showError)
       payload.message = ' ' // Nightbot
     else
       payload.message += '\n'
@@ -70,12 +84,15 @@ const wrapResponse = wrapOptions => (payload, options = {}) => {
   }
 }
 
-const fetchSheet = async () => {
-  const body = await fetch(SHEET_URL).then(_ => _.text())
+const fetchSheet = async (sheet = 'hard') => {
+  if(!SHEET[sheet]) {
+    throw new ReferenceError(`requested sheet '${sheet}' doesn't exist`)
+  }
+  const body = await fetch(SHEET[sheet].url).then(_ => _.text())
 
   const dom = htmlparser2.parseDocument(body)
   const pages = new Map(
-    Object.entries(SHEET_MAPPING).map(([ buttons, id ]) => [
+    Object.entries(SHEET[sheet].map).map(([ buttons, id ]) => [
       buttons,
       CSSSelect
         .selectAll(`[id="${id}"] tbody > tr`, dom)
@@ -92,13 +109,20 @@ const fetchSheet = async () => {
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
+    const [, path] = url.pathname.split('/')
+    const sheet = path || 'hard'
     const query = url.searchParams.get('q')
     const flags = url.searchParams.get('f')?.split(',') ?? []
 
+    if(path === '') // dirty backward-compatiblity
+      flags.push('nightbot')
+
     const responseType = flags.includes('json')? 'json' : 'text'
-    // '+' means '%20' in URL, but just gonna ignoring this fact
-    const sendError = responseType === 'text'? flags.includes(' error') : !flags.includes('-error')
-    const _response = wrapResponse({ responseType, sendError })
+    const showError = flags.includes('error')
+    const shouldEscape = flags.includes('nightbot') && !flags.includes('-escape')
+    const alwaysOk = flags.includes('nightbot') || flags.includes('-error')
+
+    const _response = wrapResponse({ responseType, showError, shouldEscape, alwaysOk })
 
     if(!query)
       return _response(`사용법: !전일 kick it 6sc https://github.com/hibiyasleep/djmax-topscore-worker`, { status: 404 })
@@ -107,14 +131,14 @@ export default {
     if(!title)
       return _response(`검색어 '${query}'를 인식하지 못했습니다.`, { status: 404 })
 
-    let rows = await env.dmrv_sheet.get(`hard-${button}b`, { type: 'json' })
+    let rows = await env.dmrv_sheet.get(`dmrv-${sheet}-${button}b`, { type: 'json' })
 
     if(rows === null) {
-      const sheet = await fetchSheet()
-      for(const [button, page] of sheet.entries())
-        await env.dmrv_sheet.put(`hard-${button}b`, JSON.stringify(page), { expirationTtl: SHEET_TTL })
+      const doc = await fetchSheet(sheet)
+      for(const [button, page] of doc.entries())
+        await env.dmrv_sheet.put(`dmrv-${sheet}-${button}b`, JSON.stringify(page), { expirationTtl: SHEET_TTL })
 
-      rows = sheet.get(button)
+      rows = doc.get(button)
     }
 
     const found = rows.map(row => ({
@@ -130,7 +154,12 @@ export default {
     if(!found)
       return _response(`검색 조건 '${title}, ${button}키, ${pattern || '아무 패턴'}'에 일치하는 항목이 없습니다.`, { status: 404 })
 
-    let message = `${found.title} ${button}B ${found.pattern}:`
+    let message = `${found.title} ${button}B ${found.pattern}`
+
+    if(sheet === 'max' && !flags.includes('hidemode'))
+      message += ' (MAX)'
+
+    message += ':'
 
     if(found.score) {
       message += ` ${found.percent}, ${found.score}`
