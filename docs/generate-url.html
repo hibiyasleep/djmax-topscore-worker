@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title> 디맥하판전일봇 명령어생성기 </title>
+<style>
+body {
+  font-family: sans-serif;
+  margin: 3rem auto;
+  max-width: 40rem;
+  line-height: 1.6;
+  font-size: 1.2rem;
+  color: #222;
+  padding: 0 1rem;
+}
+input {
+  font: inherit;
+  font-family: monospace;
+}
+section {
+  margin: 2rem 0
+}
+.full {
+  width: calc(100vw - 2rem);
+  margin-left: 50%;
+  padding: 0.5rem;
+  transform: translateX(calc(-50vw + 1rem));
+
+  background: #0001;
+
+  overflow-x: auto;
+}
+</style>
+<main id="root">
+  <section>
+    <a href="https://github.com/hibiyasleep/djmax-topscore-worker">
+      사용법으로 돌아가기
+    </a>
+  </section>
+  <section>
+    <p class="radio">
+      <label>
+        <input type="radio" v-model="mode" name="mode" value="hard" checked />
+        HARD
+      </label>
+      /
+      <label>
+        <input type="radio" v-model="mode" name="mode" value="max" />
+        MAX
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" v-model="who" />
+        누구 성과인지 보여주기
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" v-model="error" />
+        에러 메시지 보여주기
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" v-model="nightbot" />
+        Nightbot
+      </label>
+    </p>
+    <p v-if="nightbot">
+      <label>
+        <input type="checkbox" v-model="checkGame" />
+        게임이 DJMAX RESPECT V일 때만 대답하기
+      </label>
+    </p>
+    <p v-if="nightbot">
+      <label>
+        명령어:
+        <input type="text" v-model="command" />
+      </label>
+    </p>
+    <p v-if="nightbot">
+      <label>
+        쿨타임:
+        <input type="number" v-model="cooldown" min="0" />
+      </label>
+    </p>
+    <p v-if="!nightbot">
+      <label>
+        <input type="checkbox" v-model="json" />
+        JSON으로 응답
+      </label>
+    </p>
+  </section>
+  <section>
+    <p v-if="nightbot">
+      아래 명령어를 Twitch 채팅에 입력해서 명령어를 등록하세요:
+    </p>
+    <p v-else>
+      봇을 잘 설정해서 이 URL로 요청을 보내게 해 보세요:
+    </p>
+    <pre class="full">{{ result }}</pre>
+    <p>
+      <button @click="copy">
+        {{ copied? '복사함!' : '복사하기' }}
+      </button>
+    </p>
+  </section>
+</main>
+
+<script type="module">
+
+import Vue from 'https://unpkg.com/vue@2/dist/vue.esm.browser.min.js'
+
+const rootvm = new Vue({
+  el: '#root',
+  data: () => ({
+    mode: 'hard',
+    who: false,
+    error: false,
+    nightbot: true,
+    checkGame: true,
+    json: false,
+    command: '!전일',
+    cooldown: 5,
+    copied: false,
+    copiedTimer: null
+  }),
+  methods: {
+    copy() {
+      clearTimeout(this.copiedTimer)
+      navigator.clipboard.writeText(this.result)
+      this.copied = true
+      this.copiedTimer = setTimeout(() => this.copied = false, 1000)
+    }
+  },
+  computed: {
+    result() {
+      let url = `https://djmax.hibiya.workers.dev/${this.mode}?`
+      let flags = []
+
+      if(this.who && !this.json) flags.push('who')
+      if(this.error) flags.push('error')
+      if(this.nightbot) flags.push('nightbot')
+      if(!this.nightbot && this.json) flags.push('json')
+
+      url += 'f=' + flags.join(',')
+
+      if(this.nightbot) {
+        url += '&q=$(querystring)'
+        let command = `!commands add ${this.command} -cd=${this.cooldown} `
+        if(this.checkGame)
+          command += `$(eval \`$(twitch $(channel) "{\{game}}")\`.startsWith(\`DJMAX\`)? \`$(urlfetch ${url})\` : ' ')`
+        else
+          command += `$(urlfetch ${url})`
+        return command
+      } else {
+        return url + '&q=검색어'
+      }
+    }
+  },
+  filters: {
+    round(v) {
+      return Math.round(v)
+    }
+  }
+})
+
+</script>
