@@ -22,8 +22,8 @@ const LINES = `
 피아노 협주곡 1번
 AD2222
 Airlock	에어락
-Airwave
-ALiCE
+Airwave	에어웨이브
+ALiCE	앨리스
 ANALYS
 Angelic Sphere
 Angelic Tears
@@ -39,7 +39,7 @@ BEE-U-TIFUL
 Beyond the Future
 Beyond Yourself
 Binary World
-BLACK GOLD
+BLACK GOLD	흑금
 Black MInD	블랙마인드	블마
 Black Swan
 BlythE
@@ -135,9 +135,9 @@ Lemonade
 Liar
 Light House
 Lights of Muse	라오뮤
-Lisrim	리즐림
+Lisrim	리즐림	리슬림
 Lost Temple
-Mammal
+Mammal	마말
 Marionette
 Marry me, Nightmare
 MASAI
@@ -168,7 +168,7 @@ Nightmare	나메
 Obelisque	오벨리스크
 OBLIVION
 OBLIVION ~Rockin' Night Style~
-Odysseus	오디	오디세우스
+Odysseus	오디	오디세우스	디세우스
 Old Gold
 OrBiTal	오비탈
 ouroboros -twin stroke of the end-	우로보로스
@@ -179,7 +179,7 @@ OVER THE NIGHT
 Over the Rainbow
 Para-Q
 Plasma Sphere	플스
-PUPA	푸파	나비
+PUPA	푸파	퓨파	나비
 quixotic
 Rage Of Demon	레오데
 Ray of Illuminati
@@ -213,7 +213,7 @@ SQUEEZE
 STALKER
 Start The Adventure ~SOPHI Remix~
 STEP
-Super lovely
+Super lovely	슈럽
 Supernova	슈퍼노바
 Supersonic 2011
 Syriana ~Blast Wave Mix~
@@ -223,7 +223,7 @@ The Feelings
 The Guilty
 The Obliterator	오빌
 The One
-The Rain Maker
+The Rain Maker	레인메이커
 The wheel to the right
 Thor	토르
 Tic! Tac! Toe!	틱택토
@@ -240,11 +240,11 @@ Warrior	워리어
 Watch Your Step	발조심
 We're All Gonna Die	고너다이	거너다이	고나다이
 What am I fighting for?
-WhiteBlue
+WhiteBlue	화블	화이트블루
 Winners	위너	위너즈
-Won't Back Down	원백다운
+Won't Back Down	원백다운	원백당
 WONDER $LOT 777
-Xeus	제우스
+Xeus	제우스	째우스
 XING
 XLASHER	슬래셔
 Yo Creo Que Si ~Live House Version~
