@@ -114,7 +114,7 @@ export default {
     const query = url.searchParams.get('q')
     const flags = url.searchParams.get('f')?.split(',') ?? []
 
-    if(path === '') // dirty backward-compatiblity
+    if(path === '' || request.headers.has('Nightbot-Response-Url')) // dirty backward-compatiblity
       flags.push('nightbot')
 
     const responseType = flags.includes('json')? 'json' : 'text'
