@@ -24,7 +24,7 @@ const SHEET = {
     }
   },
   max: {
-    url: 'https://docs.google.com/spreadsheets/d/1YQ4q4T_tIuQG2g442sxtrhSXvI2iUCvU8nHAyQ4G0Vk/htmlview',
+    url: 'https://docs.google.com/spreadsheets/d/1CvBWMWPtK636cEv5e2vTPtM3A5PbqGEV1anPZwhpqjs/htmlview',
     map: {
       4: '0',
       5: '1602629531',
