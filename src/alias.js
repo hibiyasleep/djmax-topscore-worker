@@ -24,7 +24,7 @@ A Site De La Rue	데라루
 AD2222	ㅁㅇ2222
 Airlock	에어락
 Airwave	에어웨이브	에웨
-ALiCE	앨리스
+ALiCE	앨리스	더덕씨
 ANALYS	아날리스
 Angel	엔젤
 Angelic Sphere	엔젤릭스피어
