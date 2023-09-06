@@ -44,7 +44,7 @@ technical details below.
   - `!전일 vold 5 sc` (안됨)
   - `!전일 v o l d e 5 sc` (됨)
   - `!전일 8킥잇` (됨)
-  - `!전일 5디세우스` (??? 안됨;)
+  - `!전일 5디세우스` (됨...등록해둠)
 
 * 없는 패턴을 검색할 경우 다른 곡이 튀어나올 수 있으나 버그가 아닙니다.
   - `!전일 Nightmare 6 SC` (Marry Me, **Nightmare** SC가 나옴)
@@ -58,7 +58,7 @@ nightmare | Nightmare | 곡명이 짧은 것부터 찾습니다
 marry me | Marry Me, Nightmare
 orbit | OrBiTal
 운명의 | NB RANGERS - 운명의 Destiny
-g a | Disappearing Act | 되긴하는데하지마셈;
+g a | Disappearing Act | 가끔 오타나있는 곡이 (니힐리즘이라던가) 안 나올 수 있음
 \# | \#mine (feat. Riho Iwamoto)
 $ | WONDER $LOT 777
 `l` | L
