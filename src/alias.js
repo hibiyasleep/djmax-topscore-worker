@@ -1,5 +1,6 @@
-const LINES = `!!New Game Start!!	뉴겜스
-#mine (feat. Riho Iwamoto)
+const LINES = `
+!!New Game Start!!	뉴겜스
+#mine (feat. Riho Iwamoto)	마인
 공성전 ~Pierre Blanche, Yonce Remix~
 광명의 루 : 루 라바다
 너로 피어오라
@@ -11,7 +12,7 @@ const LINES = `!!New Game Start!!	뉴겜스
 부여성 ~Blosso Remix~
 비상 ~Stay With Me~
 소년 모험가 ~SiNA Remix~
-연합군과 제국군
+연합군과 제국군	연제
 염라
 전설이 시작된 곳 ~Void Rover Remix~	전시곳
 죽음의 신 : 크로우 크루아흐	죽신
@@ -35,7 +36,7 @@ Astro Fight	아스트로	아스트로파이트
 Attack	어택
 Aurora Borealis	오로라	보레알리스
 AXION	악시온
-Back to the oldschool	백올스	오수	오스	osu
+Back to the oldschool	백올스	오수	오스
 Bamboo on Bamboo	밤부
 Barbarous Funera
 Beat U Down	비추다운
@@ -89,14 +90,14 @@ Dream of Winds	드오윈
 Dream of you	드오유
 Dual Strikers	듀스
 Dysthymia	디스티미아
-Electronics	일렉트로닉스
+Electronics	일렉트로닉스	일렉
 EMber	엠버
 Emblem	엠블렘
 Emerge	이머지
 Enemy Storm ~Dark Jungle Mix~	에너미스톰
 ENERGY SYNERGY MATRIX	esm
 Enter The Universe	우주입갤
-Entrance	엔트런스
+Entrance	엔트런스	앤트런스
 Extreme Z4
 Feel Ma Beat	필마빗
 Fermion	페르미온
@@ -126,16 +127,16 @@ HELIX	헬릭스
 Hell'o	헬오	헬로	헬
 HEXAD	헥사드
 Higher	하이어
-Holy Orders (Be Just Or Be Dead)
+Holy Orders (Be Just Or Be Dead)	홀리오더
 Hyper Drive	하이퍼드라이브	하드
 Hypernaid	하이퍼네이드
 I want You ~반짝 반짝 Sunshine~	아원츄
 I'M ALIVE	암얼라이브	암얼라
-I've got a feeling
+I've got a feeling	개쩌는신곡
 Ikazuchi	이카즈치
 Imaginary dance	상상춤
 In my Dream	인마이드림
-It's my war now
+It's my war now	던
 JBG	지방간
 Kal_wrnw	마지죽
 Kensei	켄세이	겐세이
@@ -144,12 +145,12 @@ KICK IT	킥잇
 KILLER BEE	킬러비
 Knowledge System	널리지시스템	널리지
 KUDA	쿠다
-Kung Brother	쿵
+Kung Brother	쿵브라더
 L	ㄴ
 La Campanella : Nu Rave	라캄파넬라	라캄
 Landscape	랜드스케이프
 Leave me alone	립미얼론
-Lemonade	레몬에이드
+Lemonade	레몬에이드	레모네이드
 Liar	라이어
 Light House	라이트하우스	라잇하우스	라하
 Lights of Muse	라이츠오브뮤즈	라이트오브뮤즈	라오뮤
@@ -170,18 +171,18 @@ Mind Control	마컨	마인드컨트롤
 Minimal Life	미니멀
 Minus 3	마삼
 Misty E'ra 'Mui'	무이
-Moment (feat. Nauts)
+Moment (feat. Nauts)	모멘트
 Mr.Lonely	미스터론리	론리
 Mulch	멀치	물치
 MUSEDASH!!!!	뮤대
 Myosotis	마이오소티스	물망초
-NB Girls
-NB POWER
-NB RANGER
+NB Girls	엔비걸즈
+NB POWER	엔비파워
+NB RANGER	엔비레인저
 NB RANGER -Virgin Force	버진포스
 NB RANGER -Virgin Force-
 NB RANGERS - 운명의 Destiny	데스티니
-NB Rangers -Returns-
+NB Rangers -Returns-	엔비리턴즈	엔비리턴
 Never Die	네버다이
 Never let you go	네버렛츄고
 Nevermind	네버마인드
@@ -203,10 +204,10 @@ Over the Rainbow	오버더레인보우
 Para-Q	파라큐
 Plasma Sphere	플스
 PUPA	푸파	퓨파	나비
-Puzzler
+Puzzler	퍼즐러
 quixotic	퀵소틱
 Rage Of Demon	레오데
-Ray of Illuminati
+Ray of Illuminati	레오일	일루미나티
 Ray Tuning	레이튜닝
 Real Over Drive
 Red Eyes	레드아이즈
@@ -227,7 +228,7 @@ Secret Dejavu	시크릿데자뷰
 Seeker	시커
 Set Me Free	셋미프리	셋미
 Showdown	쇼다운
-Showdown (ez2on)
+Showdown (ez2on)	투온쇼다운
 SigNalize	시그널라이즈
 Silent Clarity
 SIN	신	냐ㅜ
@@ -243,7 +244,7 @@ Stay	스테이
 Stay Alive	스테이얼라이브	스얼
 STEP	스텝
 Stolen Memory	스톨른메모리	스톨른
-Super lovely	슈럽
+Super lovely	슈퍼러블리	슈럽
 Supernova	슈퍼노바
 SuperSonic	슈퍼소닉	두부소닉	슈스
 Supersonic 2011	슈퍼소닉2011	슈스2011
@@ -273,9 +274,9 @@ VORTEX
 Waiting for you	댕댕포유
 Warrior	워리어
 Watch Your Step	발조심
-We're All Gonna Die	고너다이	거너다이	고나다이
+We're All Gonna Die	고너다이	거너다이	고나다이	거나다이
 Weaponize	웨포나이즈
-WEIRD WAVE	이뭔씨
+WEIRD WAVE	위어드웨이브	이뭔씨
 What am I fighting for?
 WhiteBlue	화블	화이트블루
 Winners	위너	위너즈
@@ -285,13 +286,22 @@ Xeus	제우스	째우스
 XING	싱
 XLASHER	슬래셔
 Y (CE Style)
-Yo Creo Que Si ~Live House Version~
+Yo Creo Que Si ~Live House Version~	요크레
 Your Own Miracle
 Zero to the hunnit	제로투
 Zero-Break	제브
 Zeroize	제로아이즈
 ZET
 ZET ~Mr.Funky Remix~
+Ariant ~ned Remix~	아리안트
+Fairytale ~Pan Remix~	페어리테일	파퓰	파풀	파퓰라투스	파풀라투스	와치햄
+Missing You ~SOPHI Remix~	미싱유	나무던전
+Moonlight Shadow ~Paul Bazooka Remix~	문라이트섀도우	문라이트섀도	문라잇섀도우	문라잇섀도	엘리니아
+Story of Maple	스오메
+The Lake of Oblivion ~jam-jam Remix~	여로
+The Tune of the Azure Light ~Parang Remix~	아르카나
+Catch Your Dreams!	캐치유어드림즈	캐치유어드림	캐유드	프렌즈스토리
+Smile	스마일
 `
 
 const ALIASES = Object.fromEntries(LINES.split('\n').flatMap(line => {
