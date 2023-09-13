@@ -294,7 +294,7 @@ Zeroize	제로아이즈
 ZET
 ZET ~Mr.Funky Remix~
 Ariant ~ned Remix~	아리안트
-Fairytale ~Pan Remix~	페어리테일	파퓰	파풀	파퓰라투스	파풀라투스	와치햄
+Fairytale ~Pan Remix~	페어리테일	파퓰	파풀	파퓰라투스	파풀라투스	와치햄	손흥민	전현무
 Missing You ~SOPHI Remix~	미싱유	나무던전
 Moonlight Shadow ~Paul Bazooka Remix~	문라이트섀도우	문라이트섀도	문라잇섀도우	문라잇섀도	엘리니아
 Story of Maple	스오메
