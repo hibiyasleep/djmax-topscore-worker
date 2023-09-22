@@ -1,6 +1,18 @@
-technical details below.  
-설정 방법은 맨 아래를 참고해주세요.
+## 스트리머용 설정법
 
+### Nightbot
+
+1. https://nightbot.tv/ 에서 채널에 Nightbot을 추가합니다.
+2. [명령어 생성기](https://hibiyasleep.github.io/djmax-topscore-worker/generate-url.html)에서 원하는 대로 명령어를 구성한 다음, Twitch 채팅창에 붙여넣으세요.
+
+### 이외
+
+빵떡이는 안 됨
+
+무봇은 좀 어려운데 되긴 함
+
+
+---
 
 
 # 디맥하판전일봇(가)
@@ -102,22 +114,3 @@ $ | WONDER $LOT 777
     - JSON일 경우
       - 기본 응답: `status` (HTTP 응답 코드), `message`
       - 정상 응답일 때: `title`, `pattern`, `score`, `percent`, `player`, `button`
-
-
-
----
-
-
-
-## 스트리머용 설정법
-
-### Nightbot
-
-1. https://nightbot.tv/ 에서 채널에 Nightbot을 추가합니다.
-2. [명령어 생성기](https://hibiyasleep.github.io/djmax-topscore-worker/generate-url.html)에서 원하는 대로 명령어를 구성한 다음, Twitch 채팅창에 붙여넣으세요.
-
-
-### Moobot
-
-설명은 못하겠는데 가능은 합니다  
-위에 명령어 생성기에서 URL만 만들 수도 있음
