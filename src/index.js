@@ -8,50 +8,37 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-import * as htmlparser2 from 'htmlparser2'
-import * as CSSSelect from 'css-select'
+import * as util from './util.js'
 
-import ALIASES from './alias.js'
+const API_BASE = `https://hard-archive.com/api`
 
-const SHEET = {
-  hard: {
-    url: 'https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/htmlview',
-    map: {
-      4: '0',
-      5: '1602629531',
-      6: '87242412',
-      8: '1815765540'
+const fetchSonglist = async () => {
+  const body = await fetch(API_BASE + '/song', {
+    cf: {
+      cacheTtl: 86400,
+      cacheEverything: true
     }
-  },
-  max: {
-    url: 'https://docs.google.com/spreadsheets/d/1CvBWMWPtK636cEv5e2vTPtM3A5PbqGEV1anPZwhpqjs/htmlview',
-    map: {
-      4: '0',
-      5: '1602629531',
-      6: '87242412',
-      8: '1815765540'
-    }
-  }
+  }).then(async _ => await _.json())
+  console.log('fetched song list: ', body)
+
+  return new Map(
+    body.sort((a, b) => a.title.length - b.title.length)
+        .map(song => [ song.title.toLowerCase(), song ])
+  )
 }
 
-const SHEET_TTL = 600
+const findPattern = (patterns, key, pattern) => {
+  const found = patterns[key + 'B']
+  if(!found)
+    return null
 
-const parseCommand = message => {
-  let match, title, button, pattern
+  const patternFound = pattern?
+    found.find(p => p.startsWith(pattern))
+  : found.at(-1)
+  if(!patternFound)
+    return null
 
-  ;[match, title, button, pattern] = /^(.+?) ?([4568])[bk ]?(mx|sc)?$/i.exec(message) || []
-  if(match) {
-    title = ALIASES[title] || title
-    return [ title.toLowerCase(), button, (pattern ?? '').toUpperCase() ]
-  }
-
-  ;[match, button, title] = /^([4568]) ?(.+?)$/i.exec(message) || []
-  if(match) {
-    title = ALIASES[title] || title
-    return [ title.toLowerCase(), button, '' ]
-  }
-
-  return []
+  return [key + 'B', patternFound]
 }
 
 const wrapResponse = wrapOptions => (payload, options = {}) => {
@@ -75,35 +62,13 @@ const wrapResponse = wrapOptions => (payload, options = {}) => {
       ...options
     })
   } else {
-    if((payload.status < 200 || 299 < payload.status) && !wrapOptions.showError)
+    if((payload.status < 200 || (299 < payload.status && payload.status < 500)) && !wrapOptions.showError)
       payload.message = ' ' // Nightbot
     else
       payload.message += '\n'
 
     return new Response(payload.message, options)
   }
-}
-
-const fetchSheet = async (sheet = 'hard') => {
-  if(!SHEET[sheet]) {
-    throw new ReferenceError(`requested sheet '${sheet}' doesn't exist`)
-  }
-  const body = await fetch(SHEET[sheet].url).then(_ => _.text())
-
-  const dom = htmlparser2.parseDocument(body)
-  const pages = new Map(
-    Object.entries(SHEET[sheet].map).map(([ buttons, id ]) => [
-      buttons,
-      CSSSelect
-        .selectAll(`[id="${id}"] tbody > tr`, dom)
-        .map(({ children }) => [ children[2], children[4], children[5], children[6], children[7] ])
-        .map(row => row.map(el => el.children[0]?.data))
-        .filter(row => row[0])
-        .map(row => row.slice(0, 5))
-    ])
-  )
-
-  return pages
 }
 
 export default {
@@ -127,10 +92,32 @@ export default {
     if(!query)
       return _response(`사용법: !전일 kick it 6sc https://github.com/hibiyasleep/djmax-topscore-worker`, { status: 404 })
 
-    const [ title, button, pattern ] = parseCommand(query)
-    if(!title)
+    const parsed = util.parseCommand(query)
+    if(!parsed)
       return _response(`검색어 '${query}'를 인식하지 못했습니다.`, { status: 404 })
 
+    const songs = await fetchSonglist()
+    if(!songs)
+      return _response(`곡 목록을 받아오지 못했습니다.`, { status: 500 })
+
+    const { value: foundTitle } = util.findFirst(songs.keys(), ({ value }) => value.includes(parsed.title))
+    const found = songs.get(foundTitle)
+    const [ foundKeys, foundPattern ] = findPattern(found.pattern, parsed.button, parsed.pattern)
+
+    const response = await fetch(API_BASE + '/record?' + new URLSearchParams({
+      song_id: found.id,
+      button: foundKeys,
+      lv: foundPattern,
+      judge: 'hard'
+    })).then(_ => _.json())
+
+    if(!response.status)
+      if(response.message)
+        return _response(`서버 오류: ${response.message}`, { status: 500 })
+      else
+        return _response(`알 수 없는 서버 오류`, { status: 500 })
+
+    /*
     let rows = await env.dmrv_sheet.get(`dmrv-${sheet}-${button}b`, { type: 'json' })
 
     if(rows === null) {
@@ -153,25 +140,28 @@ export default {
 
     if(!found)
       return _response(`검색 조건 '${title}, ${button}키, ${pattern || '아무 패턴'}'에 일치하는 항목이 없습니다.`, { status: 404 })
+    */
 
-    let message = `${found.title} ${button}B ${found.pattern}`
+    const entry = response.data[0]
+
+    let message = `${found.title} ${foundKeys}B ${foundPattern}`
 
     if(sheet === 'max' && !flags.includes('hidemode'))
       message += ' (MAX)'
 
     message += ':'
 
-    if(found.score) {
-      message += ` ${found.percent}, ${found.score}`
+    if(entry?.score) {
+      message += ` ${(entry.rate / 100).toFixed(2)}%, ${entry.score}`
       if(flags.includes('who'))
-        message += ` (by ${found.player})`
+        message += ` (by ${entry.nickname})`
     } else {
       message += ' ---'
     }
 
     return _response({
       ...found,
-      button,
+      // button,
       message
     })
   }

@@ -8,9 +8,5 @@
   "scripts": {
     "start": "wrangler dev",
     "deploy": "wrangler publish"
-  },
-  "dependencies": {
-    "css-select": "^5.1.0",
-    "htmlparser2": "^8.0.1"
   }
 }
