@@ -28,9 +28,9 @@ export const parseCommand = message => {
 
 export const findFirst = (iterator, condition) => {
   let item
-  while(item = iterator.next()) {
-    if(condition(item)) {
-      return item
+  while((item = iterator.next()) && !item.done) {
+    if(condition(item.value)) {
+      return item.value
     }
   }
 }

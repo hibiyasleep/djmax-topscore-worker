@@ -19,7 +19,6 @@ const fetchSonglist = async () => {
       cacheEverything: true
     }
   }).then(async _ => await _.json())
-  console.log('fetched song list: ', body)
 
   return new Map(
     body.sort((a, b) => a.title.length - b.title.length)
@@ -30,13 +29,13 @@ const fetchSonglist = async () => {
 const findPattern = (patterns, key, pattern) => {
   const found = patterns[key + 'B']
   if(!found)
-    return null
+    return []
 
   const patternFound = pattern?
     found.find(p => p.startsWith(pattern))
   : found.at(-1)
   if(!patternFound)
-    return null
+    return []
 
   return [key + 'B', patternFound]
 }
@@ -100,9 +99,14 @@ export default {
     if(!songs)
       return _response(`곡 목록을 받아오지 못했습니다.`, { status: 500 })
 
-    const { value: foundTitle } = util.findFirst(songs.keys(), ({ value }) => value.includes(parsed.title))
+    const foundTitle = util.findFirst(songs.keys(), title => title?.includes(parsed.title))
     const found = songs.get(foundTitle)
+    if(!found)
+      return _response(`검색어 '${parsed.title}'로 찾은 곡이 없습니다.`, { status: 404 })
+
     const [ foundKeys, foundPattern ] = findPattern(found.pattern, parsed.button, parsed.pattern)
+    if(!foundPattern)
+      return _response(`'${found.title}'에 ${parsed.button}버튼 ${parsed.pattern || '시험범위'} 패턴이 있나?`, { status: 404 })
 
     const response = await fetch(API_BASE + '/record?' + new URLSearchParams({
       song_id: found.id,
