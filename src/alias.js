@@ -3,9 +3,7 @@ const LINES = `
 #mine (feat. Riho Iwamoto)	마인
 공성전 ~Pierre Blanche, Yonce Remix~
 광명의 루 : 루 라바다
-너로 피어오라
-너로피어오라
-피어오라	너피오
+너로피어오라	너피오
 모짜르트 교향곡 40번 1악장
 바람에게 부탁해 ~Live Mix~	바부라
 복수혈전
@@ -14,7 +12,7 @@ const LINES = `
 소년 모험가 ~SiNA Remix~
 연합군과 제국군	연제
 염라
-전설이 시작된 곳 ~Void Rover Remix~	전시곳
+전설이 시작된 곳 ~VoidRover Remix~	전시곳
 죽음의 신 : 크로우 크루아흐	죽신
 최종무곡
 카트라이더 Mashup ~Cosmograph Remix~	코스모
@@ -32,6 +30,7 @@ Angelic Sphere	엔젤릭스피어
 Angelic Tears	엔젤릭티어즈
 ANiMA	아니마
 Aquaris	아쿠아리스
+Ariant ~ned Remix~	아리안트
 Astro Fight	아스트로	아스트로파이트
 Attack	어택
 Aurora Borealis	오로라	보레알리스
@@ -54,6 +53,7 @@ Break a Spell	브레이크어스펠
 Break!	브레이크
 Bright Future	브퓨
 Burn it Down	번잇다운
+Catch Your Dreams!	캐치유어드림즈	캐치유어드림	캐유드	프렌즈스토리
 Celestial Tears	셀레스티얼티어즈
 Chain of Gravity	체인오브그래비티	체오그
 Chemical Slave	케미컬슬레이브	케미컬
@@ -71,9 +71,9 @@ Cyberozar	삭제
 Cypher Gate	사게	싸게
 D2	디투
 Dance of the Dead	댄오데
-Dancing Planet	댄싱플래닛	댄플
+Dancin' Planet	댄싱플래닛	댄플
 DARK ENVY	다크엔비
-Dark Lighting	다크라이트닝	닼라
+Dark Lightning	다크라이트닝	닼라
 Dark Prism	다크프리즘	닼프
 DataErr0r	데이터에러	데에
 Daydream	데이드림
@@ -99,10 +99,12 @@ ENERGY SYNERGY MATRIX	esm
 Enter The Universe	우주입갤
 Entrance	엔트런스	앤트런스
 Extreme Z4
+Fairytale ~Pan Remix~	페어리테일	파퓰	파풀	파퓰라투스	파풀라투스	와치햄	손흥민	전현무
 Feel Ma Beat	필마빗
 Fermion	페르미온
 Festa Nova	페스타노바
 FIGHT NIGHT	파이트나이트	파잇나잇
+FIGHT NIGHT (feat. Calyae)
 For Seasons ~Air Guitar Mix~	포시즌
 For the IKARUS	이카루스
 Forgotten	포가튼	폴가튼	포거튼	폴거튼
@@ -111,11 +113,11 @@ Frontline	소전
 Fundamental	펀더멘털	펀다멘털	푼더멘털	푼다멘털	펀더멘탈	펀다멘탈	푼더멘탈	푼다멘탈
 Fury	퓨리
 Garakuta Doll Play	가라쿠타
--JHS Remix-	glory day -JHS Remix-
+glory day -JHS Remix-
 glory day (Mintorment Remix)
 Gloxinia	글록시니아
 Gone Astray	곤아스
-Good Night, Bad Luck
+Good Night, Bad Luck.
 Got more raves?	갓모레
 Grave Consequence	그컨
 Grid System	그리드시스템
@@ -130,9 +132,9 @@ Higher	하이어
 Holy Orders (Be Just Or Be Dead)	홀리오더
 Hyper Drive	하이퍼드라이브	하드
 Hypernaid	하이퍼네이드
-I want You ~반짝 반짝 Sunshine~	아원츄
+I want You ~반짝★반짝 Sunshine~	아원츄
 I'M ALIVE	암얼라이브	암얼라
-I've got a feeling	개쩌는신곡
+I’ve got a feeling	개쩌는신곡
 Ikazuchi	이카즈치
 Imaginary dance	상상춤
 In my Dream	인마이드림
@@ -170,8 +172,10 @@ Midnight Blood
 Mind Control	마컨	마인드컨트롤
 Minimal Life	미니멀
 Minus 3	마삼
+Missing You ~SOPHI Remix~	미싱유	나무던전
 Misty E'ra 'Mui'	무이
 Moment (feat. Nauts)	모멘트
+Moonlight Shadow ~Paul Bazooka Remix~	문라이트섀도우	문라이트섀도	문라잇섀도우	문라잇섀도	엘리니아
 Mr.Lonely	미스터론리	론리
 Mulch	멀치	물치
 MUSEDASH!!!!	뮤대
@@ -179,8 +183,7 @@ Myosotis	마이오소티스	물망초
 NB Girls	엔비걸즈
 NB POWER	엔비파워
 NB RANGER	엔비레인저
-NB RANGER -Virgin Force	버진포스
-NB RANGER -Virgin Force-
+NB RANGER -Virgin Force-	버진포스
 NB RANGERS - 운명의 Destiny	데스티니
 NB Rangers -Returns-	엔비리턴즈	엔비리턴
 Never Die	네버다이
@@ -188,10 +191,10 @@ Never let you go	네버렛츄고
 Nevermind	네버마인드
 New World	뉴월드
 Nightmare	나이트메어	나메
-Nih	니힐리즘	니힐
+Nihilism	니힐리즘	니힐
 Obelisque	오벨리스크	오벨
-OBLIVION	오빌리비언	오빌
-OBLIVION ~Rockin' Night Style~	오빌락
+OBLIVION	오빌리비언	오빌	오블
+OBLIVION ~Rockin' Night Style~	오빌락	오블락	블락
 Odysseus	오디세우스	오디	디세우스
 Old Gold	올드골드	올골
 OrBiTal	오비탈
@@ -233,6 +236,7 @@ SigNalize	시그널라이즈
 Silent Clarity
 SIN	신	냐ㅜ
 SIN ~The Last Scene~	신더라신
+Smile	스마일
 SON OF SUN	추장
 Space Challenger	스챌
 Space of Soul	스오소
@@ -244,6 +248,7 @@ Stay	스테이
 Stay Alive	스테이얼라이브	스얼
 STEP	스텝
 Stolen Memory	스톨른메모리	스톨른
+Story of Maple	스오메
 Super lovely	슈퍼러블리	슈럽
 Supernova	슈퍼노바
 SuperSonic	슈퍼소닉	두부소닉	슈스
@@ -254,15 +259,15 @@ The Clear Blue Sky	클블스
 The Feelings	필링
 The Four Seasons : Summer 2017	사계	하농
 The Guilty	길티
+The Lake of Oblivion ~jam-jam Remix~	여로
 The Obliterator	오빌
 The One	더원
 The Rain Maker	레인메이커
+The Tune of the Azure Light ~Parang Remix~	아르카나
 The wheel to the right	휠투라	인도인
 Thor	토르
 Tic! Tac! Toe!	틱택토
-Trrrickster	트릭스터
-Trrrickster!!
-Trrricksters!!
+Trrricksters!!	트릭스터
 U.A.D	UAD	uad	울트라아줌마댄스
 Urban Night	어반나이트
 v o l d e n u i t	볼데누잇	voldenuit	볼데
@@ -293,15 +298,6 @@ Zero-Break	제브
 Zeroize	제로아이즈
 ZET
 ZET ~Mr.Funky Remix~
-Ariant ~ned Remix~	아리안트
-Fairytale ~Pan Remix~	페어리테일	파퓰	파풀	파퓰라투스	파풀라투스	와치햄	손흥민	전현무
-Missing You ~SOPHI Remix~	미싱유	나무던전
-Moonlight Shadow ~Paul Bazooka Remix~	문라이트섀도우	문라이트섀도	문라잇섀도우	문라잇섀도	엘리니아
-Story of Maple	스오메
-The Lake of Oblivion ~jam-jam Remix~	여로
-The Tune of the Azure Light ~Parang Remix~	아르카나
-Catch Your Dreams!	캐치유어드림즈	캐치유어드림	캐유드	프렌즈스토리
-Smile	스마일
 `
 
 const ALIASES = Object.fromEntries(LINES.split('\n').flatMap(line => {
