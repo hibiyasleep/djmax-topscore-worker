@@ -148,7 +148,7 @@ export default {
 
     const entry = response.data[0]
 
-    let message = `${found.title} ${foundKeys}B ${foundPattern}`
+    let message = `${found.title} ${foundKeys} ${foundPattern}`
 
     if(sheet === 'max' && !flags.includes('hidemode'))
       message += ' (MAX)'
