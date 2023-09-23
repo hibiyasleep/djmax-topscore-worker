@@ -74,7 +74,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
     const [, path] = url.pathname.split('/')
-    const sheet = path || 'hard'
+    const judge = path || 'hard'
     const query = url.searchParams.get('q')
     const flags = url.searchParams.get('f')?.split(',') ?? []
 
@@ -112,7 +112,7 @@ export default {
       song_id: found.id,
       button: foundKeys,
       lv: foundPattern,
-      judge: 'hard'
+      judge
     })).then(_ => _.json())
 
     if(!response.status)
@@ -150,7 +150,7 @@ export default {
 
     let message = `${found.title} ${foundKeys} ${foundPattern}`
 
-    if(sheet === 'max' && !flags.includes('hidemode'))
+    if(judge === 'max' && !flags.includes('hidemode'))
       message += ' (MAX)'
 
     message += ':'
