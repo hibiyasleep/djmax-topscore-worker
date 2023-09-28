@@ -11,20 +11,25 @@
 
 무봇은 좀 어려운데 되긴 함
 
+해당 API를 사용하여 Nightbot으로 만들 수 있는 Twitch/YouTube 봇 기능을 그대로 만드는 것은 OK
+
+그 이외에는 아래 Discord로 문의 부탁드립니다.
+
 
 ---
 
 
 # 디맥하판전일봇(가)
 
-- v0.1.1
-
 - 데이터 제공: 하드판정 전일 기록 아카이브
-  - [하드판정 시트](https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/edit)
-  - [맥스판정 시트](https://docs.google.com/spreadsheets/d/1YQ4q4T_tIuQG2g442sxtrhSXvI2iUCvU8nHAyQ4G0Vk/edit)
+  - [hard-archive.com](https://hard-archive.com)
+  - ~~[하드판정 시트](https://docs.google.com/spreadsheets/d/16Lece3Rbov14mb6Jf7C8iCrDDr6lyXkn-pra8QJPcaw/edit)~~
+  - ~~[맥스판정 시트](https://docs.google.com/spreadsheets/d/1YQ4q4T_tIuQG2g442sxtrhSXvI2iUCvU8nHAyQ4G0Vk/edit)~~
   - [Discord](https://discord.gg/F7qkTr2NJ4)
 
-- 문의: hibiya (hibiya#8268, [@hibiyasleep](https://twitter.com/hibiyasleep))
+- 문의
+  - 트위치 봇 연동: hibiya (hibiya#8268, [@hibiyasleep](https://twitter.com/hibiyasleep))
+  - 기타 모든 것: 위 Discord
 
 
 ## 사용법
