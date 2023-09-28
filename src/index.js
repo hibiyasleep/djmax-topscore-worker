@@ -164,8 +164,9 @@ export default {
     }
 
     return _response({
+      ...entry,
       ...found,
-      // button,
+      patterns: found.pattern,
       message
     })
   }
