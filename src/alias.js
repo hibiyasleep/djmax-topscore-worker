@@ -231,7 +231,7 @@ Secret Dejavu	시크릿데자뷰
 Seeker	시커
 Set Me Free	셋미프리	셋미
 Showdown	쇼다운
-Showdown (ez2on)	투온쇼다운
+Showdown (EZ	투온쇼다운
 SigNalize	시그널라이즈
 Silent Clarity
 SIN	신	냐ㅜ
@@ -300,11 +300,44 @@ ZET
 ZET ~Mr.Funky Remix~
 `
 
-const ALIASES = Object.fromEntries(LINES.split('\n').flatMap(line => {
+export const ALIASES = Object.fromEntries(LINES.split('\n').flatMap(line => {
   const [name, ...alias] = line.trim().split('\t')
   if(!name || !alias.length)
     return
   return alias.map(_ => [_, name])
 }).filter(_ => _))
 
-export default ALIASES
+export const PACKS = {
+  'RESPECT': 'R',
+  'V EXTENSION 4': 'VEX4',
+  'V EXTENSION 3': 'VEX3',
+  'V EXTENSION 2': 'VEX2',
+  'TECHNIKA 1': 'T1',
+  'TECHNIKA 2': 'T2',
+  'TECHNIKA 3': 'T3',
+  'EZ2ON REBOOT : R': 'EZ',
+  'CYTUS': 'Cytus',
+  'DEEMO': 'DeeMo',
+  'MAPLESTORY': 'MS',
+  'V EXTENSION': 'VEX1',
+  "GIRLS'FRONTLINE": 'GF',
+  'BLACK SQUARE': 'BS',
+  'PORTABLE 1': 'P1',
+  'PORTABLE 2': 'P2',
+  'PORTABLE 3': 'P3',
+  'GROOVE COASTER': 'GC',
+  'GUILTY GEAR': 'GG',
+  'CLAZZIQUAI': 'CL',
+  'MUSE DASH': 'MD',
+  'CHUNITHM': 'CHU',
+  'TECHNIKA TUNE & Q': 'TQ',
+  'TRILOGY': 'TR',
+  'CLEAR PASS+': 'CP+',
+  'ESTIMATE': 'ESTi',
+  'NEXON': 'NX',
+  'Emotional Sense': 'ES'
+}
+
+export const DUPLICATES = new Set([
+  'Showdown'
+])

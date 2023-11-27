@@ -9,6 +9,7 @@
  */
 
 import * as util from './util.js'
+import { PACKS, DUPLICATES } from './alias.js'
 
 const API_BASE = `https://hard-archive.com/api`
 
@@ -22,7 +23,11 @@ const fetchSonglist = async () => {
 
   return new Map(
     body.sort((a, b) => a.title.length - b.title.length)
-        .map(song => [ song.title.toLowerCase(), song ])
+        .map(song => {
+          if(DUPLICATES.has(song.title))
+            song.title += ` (${PACKS[song.pack]})`
+          return [ song.title.toLowerCase(), song ]
+        })
   )
 }
 
@@ -99,12 +104,25 @@ export default {
     if(!songs)
       return _response(`곡 목록을 받아오지 못했습니다.`, { status: 500 })
 
-    const foundTitle = util.findFirst(songs.keys(), title => title?.includes(parsed.title))
-    const found = songs.get(foundTitle)
+    let title, foundTitle, found, foundKeys, foundPattern
+    const iter = songs.keys()
+
+    while((title = iter.next()?.value) && title && !iter.done) {
+      if(!title.includes(parsed.title))
+        continue
+      foundTitle = title
+
+      if(!(found = songs.get(title)))
+        continue
+
+      [ foundKeys, foundPattern ] = findPattern(found.pattern, parsed.button, parsed.pattern)
+      if(foundKeys && foundPattern)
+        break
+    }
+
     if(!found)
       return _response(`검색어 '${parsed.title}'로 찾은 곡이 없습니다.`, { status: 404 })
 
-    const [ foundKeys, foundPattern ] = findPattern(found.pattern, parsed.button, parsed.pattern)
     if(!foundPattern)
       return _response(`'${found.title}'에 ${parsed.button}버튼 ${parsed.pattern || '시험범위'} 패턴이 있나?`, { status: 404 })
 

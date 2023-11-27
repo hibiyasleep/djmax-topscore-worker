@@ -1,4 +1,4 @@
-import ALIASES from './alias.js'
+import { ALIASES } from './alias.js'
 
 export const parseCommand = message => {
   let match, title, button, pattern
@@ -24,13 +24,4 @@ export const parseCommand = message => {
   }
 
   return null
-}
-
-export const findFirst = (iterator, condition) => {
-  let item
-  while((item = iterator.next()) && !item.done) {
-    if(condition(item.value)) {
-      return item.value
-    }
-  }
 }
